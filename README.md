@@ -235,3 +235,55 @@ extract(array('foo' => 'bar'));
 echo $foo;  // => "bar"
 ```
 ビューファイルでは１つ１つの値を変数として利用できる方が扱いやすいため変数展開を行います。連想配列のそれそれの要素を変数展開する最も簡単な方法が`extract()`関数を利用することです。この状態でビューファイルを読み込むと、ビューファイルから展開した変数にアクセスすることが可能です。
+## 10. フレームワークの完成
+
+ここまででフレームワークの作成はすべて完了です。
+作成したファイルは以下のようになっています。※順番はアルファベット順
+
+```
+application/
+    bootstrap.php
+    controllers/
+    core/
+        Application.php
+        ClassLoader.php
+        Controller.php
+        DbManager.php
+        DbRepository.php
+        HttpNotFoundException.php
+        Request.php
+        Response.php
+        Router.php
+        Session.php
+        UnauthorizedActionException.php
+        View.php
+    models/
+    views/
+    web/
+        .htaccess
+        index.php
+```
+### フレームワークを使った際の開発内容
+このフレームワークを用いて開発する際は次の項目を実際に作っていく必要があります。
+
+- Applicationクラス
+  - ルートディレクトリの指定
+  - アクションにあわせたルーティング定義
+  - 接続するデータベースの指定（DbManagerクラスを操作）
+  - ログインアクションの指定
+- index.php
+  - Applicationの呼び出しと実行
+- Controllerクラス __（C:コントローラ）__
+  - 役割にあわせて子クラスの作成
+  - 作成する画面にあわせたアクション定義、処理の実装
+  - ログインが必要なアクションの指定
+- DbRepositoryクラス __（M:モデル）__
+  - データベース上のテーブルごとに子クラスの作成
+  - データベースアクセス処理の実装
+- ビューファイル __(V:ビュー)__
+  - アクションにあわせたHTMLの記述
+  - レイアウトファイルの記述
+  
+  フレームワークはMVCモデルを採用しているため、モデル／ビュー／コントローラに相当する箇所をアプリケーションに応じて作成を行います。
+  
+  データベースへの接続やログイン管理など、フレームワークに様々な機能が備わっているため、必要な作業に注力できるようになります。
