@@ -54,7 +54,7 @@ abstract class Controller
     {
         $defaults = array(
             'request'  => $this->request,
-            'base_url' => $this->require->getBaseUrl(),
+            'base_url' => $this->request->getBaseUrl(),
             'session'  => $this->session,
         );
 
@@ -89,7 +89,7 @@ abstract class Controller
         $this->response->setHttpHeader('Location', $url);
     }
 
-    protected function generateCsrfToken($form_name, $token)
+    protected function generateCsrfToken($form_name)
     {
         $key = 'csrf_tokens/' . $form_name;
         $tokens = $this->session->get($key, array());
